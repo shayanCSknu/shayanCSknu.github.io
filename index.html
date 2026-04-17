@@ -6,7 +6,15 @@
     <title>Shayan | CS | Music Production</title>
     <style>
         /* Global Canvas */
-        body { margin: 0; padding: 0; background-color: #050505; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #050505; 
+            color: #ffffff; 
+            /* HELVETICA - The clean choice */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+            overflow: hidden; 
+        }
 
         /* THE SMOOTH BACKGROUND SYSTEM */
         .bg-layer {
@@ -24,7 +32,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75); /* Slightly darker for white text contrast */
             z-index: -1;
         }
 
@@ -32,7 +40,7 @@
 
         #main-scroller { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
 
-        /* EVERY SLIDE USES THE "LAST SLIDE" STYLE */
+        /* THE "DEEP RISE" STYLE */
         .section { 
             min-height: 100vh; 
             display: flex; 
@@ -46,29 +54,75 @@
 
         .section .content { 
             opacity: 0; 
-            /* This is the secret: 150px makes it rise from deep down */
             transform: translateY(150px); 
-            /* This makes the glide smooth and "expensive" looking */
             transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1); 
         }
 
-        /* This triggers the rising fade when you scroll or load */
         .section.is-active .content { 
             opacity: 1; 
             transform: translateY(0); 
         }
 
-        /* Typography & Style */
-        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0; color: #ffffff; text-shadow: 0 0 15px #00ff00; }
-        h2.section-header { font-size: 3rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px 0; color: #00ff00; }
-        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background: rgba(0,0,0,0.6); padding: 25px; border-radius: 15px; }
-        
-        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; transition: 0.4s ease; }
-        .control-btn:hover { background: #00ff00; color: #000; box-shadow: 0 0 30px #00ff00; transform: scale(1.05); }
-        
-        audio { width: 100%; margin-top: 20px; }
+        /* Typography - ALL WHITE */
+        h1.site-title { 
+            font-size: 5rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.15em; 
+            margin: 0; 
+            color: #ffffff; 
+            /* Subtle white glow */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); 
+        }
 
-        @media (max-width: 768px) { h1.site-title { font-size: 3rem; } h2.section-header { font-size: 2rem; } .section { padding: 5%; } .control-btn { display: block; margin: 10px auto; width: 80%; } }
+        h2.section-header { 
+            font-size: 3rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            margin: 0 0 20px 0; 
+            color: #ffffff; 
+            font-weight: 700;
+        }
+
+        .section-paragraph { 
+            font-size: 1.2rem; 
+            line-height: 1.8; 
+            color: #dddddd; 
+            max-width: 800px; 
+            background: rgba(255, 255, 255, 0.05); /* Very subtle white box */
+            padding: 25px; 
+            border-radius: 15px;
+            backdrop-filter: blur(5px); /* Makes the box look like glass */
+        }
+        
+        /* Buttons - WHITE STYLE */
+        .control-btn { 
+            display: inline-block; 
+            margin: 15px 10px; 
+            padding: 15px 40px; 
+            text-decoration: none; 
+            color: #ffffff; 
+            border: 1px solid #ffffff; 
+            border-radius: 5px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            transition: 0.4s ease; 
+        }
+
+        .control-btn:hover { 
+            background: #ffffff; 
+            color: #000000; 
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); 
+            transform: scale(1.05); 
+        }
+        
+        audio { width: 100%; margin-top: 20px; filter: invert(1); /* Makes the player white */ }
+
+        @media (max-width: 768px) { 
+            h1.site-title { font-size: 3rem; } 
+            h2.section-header { font-size: 2rem; } 
+            .section { padding: 5%; } 
+            .control-btn { display: block; margin: 10px auto; width: 85%; } 
+        }
     </style>
 </head>
 <body>
@@ -145,15 +199,11 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Update Background
                     bgLayers.forEach(bg => bg.classList.remove('is-visible'));
                     const targetBg = document.getElementById(entry.target.dataset.bgId);
                     if (targetBg) targetBg.classList.add('is-visible');
-                    
-                    // Trigger Rise Fade
                     entry.target.classList.add('is-active');
                 } else {
-                    // Reset so it can rise again when you scroll back
                     entry.target.classList.remove('is-active');
                 }
             });
