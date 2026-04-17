@@ -6,44 +6,83 @@
     <title>Shayan | CS | Music Production</title>
     <style>
         /* Global Canvas */
-        body { margin: 0; padding: 0; overflow: hidden; background-color: #050505; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; }
-        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; z-index: -2; transition: background-image 1.2s ease-in-out; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: overlay; }
-        #main-scroller { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
-        
-        /* THE "LAST SLIDE" FADE STYLE */
-        .section { min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 10% 15%; position: relative; box-sizing: border-box; }
-        
-        .section .content { 
-            opacity: 0; 
-            transform: translateY(150px); /* This makes it rise from deep down */
-            transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1); /* This is a very smooth 'rise' effect */
+        body { margin: 0; padding: 0; background-color: #050505; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; overflow: hidden; }
+
+        /* THE SMOOTH BACKGROUND SYSTEM */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
 
-        /* Triggered when you scroll to it */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .bg-layer.is-visible { opacity: 1; }
+
+        #main-scroller { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
+
+        /* EVERY SLIDE USES THE "LAST SLIDE" STYLE */
+        .section { 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column; 
+            text-align: center; 
+            padding: 10% 15%; 
+            box-sizing: border-box; 
+        }
+
+        .section .content { 
+            opacity: 0; 
+            /* This is the secret: 150px makes it rise from deep down */
+            transform: translateY(150px); 
+            /* This makes the glide smooth and "expensive" looking */
+            transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+
+        /* This triggers the rising fade when you scroll or load */
         .section.is-active .content { 
             opacity: 1; 
             transform: translateY(0); 
         }
 
-        /* Typography */
-        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px 0; color: #ffffff; text-shadow: 0 0 15px #00ff00; }
-        h2.section-header { font-size: 3rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px 0; font-weight: 700; color: #00ff00; }
-        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background-color: rgba(0,0,0,0.6); padding: 25px; border-radius: 15px; }
+        /* Typography & Style */
+        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0; color: #ffffff; text-shadow: 0 0 15px #00ff00; }
+        h2.section-header { font-size: 3rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px 0; color: #00ff00; }
+        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background: rgba(0,0,0,0.6); padding: 25px; border-radius: 15px; }
         
-        .playlist-container { margin-top: 30px; width: 100%; max-width: 600px; }
-        audio.portfolio-player { width: 100%; margin-top: 15px; }
-        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; background-color: transparent; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.4s ease; }
-        .control-btn:hover { background-color: #00ff00; color: #000000; box-shadow: 0 0 30px #00ff00; transform: scale(1.05); }
+        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; transition: 0.4s ease; }
+        .control-btn:hover { background: #00ff00; color: #000; box-shadow: 0 0 30px #00ff00; transform: scale(1.05); }
         
-        @media (max-width: 768px) { h1.site-title { font-size: 3rem; } h2.section-header { font-size: 2rem; } .section-paragraph { font-size: 1rem; } .section { padding: 15% 5%; } .control-btn { padding: 10px 20px; width: 85%; display: block; margin: 10px auto;} }
+        audio { width: 100%; margin-top: 20px; }
+
+        @media (max-width: 768px) { h1.site-title { font-size: 3rem; } h2.section-header { font-size: 2rem; } .section { padding: 5%; } .control-btn { display: block; margin: 10px auto; width: 80%; } }
     </style>
 </head>
 <body>
 
-    <div id="background-container"></div>
+    <div id="bg-hero" class="bg-layer" style="background-image: url('hero.jpg.jpg');"></div>
+    <div id="bg-about" class="bg-layer" style="background-image: url('ubuntu.webp.webp');"></div>
+    <div id="bg-gym" class="bg-layer" style="background-image: url('gym.jpg.jpg');"></div>
+    <div id="bg-music" class="bg-layer" style="background-image: url('flstudio.jpg.jpg');"></div>
+    <div id="bg-contact" class="bg-layer" style="background-image: url('contact.jpg.jpg');"></div>
+    <div class="bg-overlay"></div>
+
     <div id="main-scroller">
 
-        <section class="section" id="hero" data-bg="hero.jpg.jpg">
+        <section class="section" id="hero" data-bg-id="bg-hero">
             <div class="content">
                 <h1 class="site-title">Shayan</h1>
                 <div class="section-paragraph">
@@ -53,40 +92,36 @@
             </div>
         </section>
 
-        <section class="section" id="about" data-bg="ubuntu.webp.webp">
+        <section class="section" id="about" data-bg-id="bg-about">
             <div class="content">
                 <h2 class="section-header">CS & Terminal</h2>
                 <div class="section-paragraph">
                     <p>This is me and my environment. They tell me to be serious because I'm a Computer Science student, but honestly, have you seen the default Ubuntu background? It's like the terminal is begging me to run <code>sudo rm -rf /</code>.</p>
-                    <p>You'd think being a CS major meant you had it all together, but half my time is spent searching Stack Overflow for reasons why my conditional statement is evaluating to true when it's clearly false. It's a miracle I haven't accidentally deployed hydra to my university network yet. Still, "Grinding in the terminal" isn't just a bio, it's a way of life.</p>
+                    <p>You'd think being a CS major meant you had it all together, but half my time is spent searching Stack Overflow. Still, "Grinding in the terminal" is a way of life.</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="gym" data-bg="gym.jpg.jpg">
+        <section class="section" id="gym" data-bg-id="bg-gym">
             <div class="content">
                 <h2 class="section-header">Gym Life</h2>
                 <div class="section-paragraph">
-                    <p>As you can see, I'm going to the gym too and I'm not doing it for 2-3 weeks like these other dudes that only go to the gym for girls hahaha. I've been going to the gym since 2021, so... yeah, this isn't a hobby. (Unlike my CS major).</p>
+                    <p>As you can see, I'm going to the gym too and I'm not doing it for 2-3 weeks like these other dudes that only go to the gym for girls hahaha. I've been going to the gym since 2021, so... yeah, this isn't a hobby.</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="music" data-bg="flstudio.jpg.jpg">
+        <section class="section" id="music" data-bg-id="bg-music">
             <div class="content">
                 <h2 class="section-header">FL Studio</h2>
                 <div class="section-paragraph">
                     <p>When my brain is melting from nested if statements, I retreat to FL Studio to make beats for fun. Unlike my C++ code, this stuff actually compiles and runs without memory leaks. Enjoy this beat. I definitely didn't hide a payload in the audio frequencies.</p>
                 </div>
-                <div class="playlist-container">
-                    <audio controls class="portfolio-player">
-                        <source src="beat.mp3.wav" type="audio/wav">
-                    </audio>
-                </div>
+                <audio controls><source src="beat.mp3.wav" type="audio/wav"></audio>
             </div>
         </section>
 
-        <section class="section" id="contact" data-bg="contact.jpg.jpg">
+        <section class="section" id="contact" data-bg-id="bg-contact">
             <div class="content">
                 <h2 class="section-header">System Access</h2>
                 <div class="section-paragraph">
@@ -100,26 +135,31 @@
             </div>
         </section>
 
-    </div> 
+    </div>
 
     <script>
         const sections = document.querySelectorAll('.section');
-        const bgContainer = document.getElementById('background-container');
+        const bgLayers = document.querySelectorAll('.bg-layer');
         const observerOptions = { root: document.getElementById('main-scroller'), threshold: 0.3 };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const newBg = entry.target.dataset.bg;
-                    bgContainer.style.backgroundImage = `url('${newBg}')`;
+                    // Update Background
+                    bgLayers.forEach(bg => bg.classList.remove('is-visible'));
+                    const targetBg = document.getElementById(entry.target.dataset.bgId);
+                    if (targetBg) targetBg.classList.add('is-visible');
+                    
+                    // Trigger Rise Fade
                     entry.target.classList.add('is-active');
                 } else {
-                    entry.target.classList.remove('is-active'); // This allows it to re-animate if you scroll back up
+                    // Reset so it can rise again when you scroll back
+                    entry.target.classList.remove('is-active');
                 }
             });
         }, observerOptions);
-        
-        sections.forEach(section => { observer.observe(section); });
+
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
