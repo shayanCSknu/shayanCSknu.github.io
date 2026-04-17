@@ -7,19 +7,40 @@
     <style>
         /* Global Canvas */
         body { margin: 0; padding: 0; overflow: hidden; background-color: #050505; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; }
+        
+        /* Fixed Background */
         #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; z-index: -2; transition: background-image 1.2s ease-in-out; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: overlay; }
+        
+        /* Smooth Scroller */
         #main-scroller { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
+        
+        /* Slides Base State (Hidden/Down) */
         .section { min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 10% 15%; position: relative; box-sizing: border-box; }
-        .section .content { opacity: 0; transform: translateY(50px); transition: all 1.2s ease-out 0.2s; }
-        .section.is-active .content { opacity: 1; transform: translateY(0); }
-        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px 0; color: #ffffff; text-shadow: 0 0 10px #00ff00; }
+        
+        .section .content { 
+            opacity: 0; 
+            transform: translateY(80px); /* Lower start for more "last slide" feel */
+            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother, slower fade */
+        }
+
+        /* Active State (Visible/Up) */
+        .section.is-active .content { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        /* Typography */
+        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px 0; color: #ffffff; text-shadow: 0 0 15px #00ff00; }
         h2.section-header { font-size: 3rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px 0; font-weight: 700; color: #00ff00; }
-        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; }
+        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background-color: rgba(0,0,0,0.6); padding: 25px; border-radius: 15px; }
+        
+        /* Music & Buttons */
         .playlist-container { margin-top: 30px; width: 100%; max-width: 600px; }
         audio.portfolio-player { width: 100%; margin-top: 15px; }
-        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; background-color: transparent; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s ease; }
-        .control-btn:hover { background-color: #00ff00; color: #000000; box-shadow: 0 0 25px #00ff00; transform: scale(1.05); }
-        @media (max-width: 768px) { h1.site-title { font-size: 3rem; } h2.section-header { font-size: 2rem; } .section-paragraph { font-size: 1rem; padding: 15px; } .section { padding: 15% 5%; } .control-btn { padding: 10px 20px; width: 80%; display: block; margin: 10px auto;} }
+        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; background-color: transparent; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.4s ease; }
+        .control-btn:hover { background-color: #00ff00; color: #000000; box-shadow: 0 0 30px #00ff00; transform: scale(1.05); }
+        
+        @media (max-width: 768px) { h1.site-title { font-size: 3.2rem; } h2.section-header { font-size: 2.2rem; } .section-paragraph { font-size: 1.1rem; } .section { padding: 15% 5%; } .control-btn { padding: 10px 20px; width: 85%; display: block; margin: 10px auto;} }
     </style>
 </head>
 <body>
@@ -27,7 +48,7 @@
     <div id="background-container"></div>
     <div id="main-scroller">
 
-        <section class="section is-active" id="hero" data-bg="hero.jpg.jpg">
+        <section class="section" id="hero" data-bg="hero.jpg.jpg">
             <div class="content">
                 <h1 class="site-title">Shayan</h1>
                 <div class="section-paragraph">
@@ -42,7 +63,7 @@
                 <h2 class="section-header">CS & Terminal</h2>
                 <div class="section-paragraph">
                     <p>This is me and my environment. They tell me to be serious because I'm a Computer Science student, but honestly, have you seen the default Ubuntu background? It's like the terminal is begging me to run <code>sudo rm -rf /</code>.</p>
-                    <p>You'd think being a CS major meant you had it all together, but half my time is spent searching Stack Overflow for reasons why my conditional statement is evaluating to true when it's clearly false. It's a miracle I haven't accidentally deployed hydra to my university network yet. Still, "Grinding in the terminal" isn't just a bio, it's a way of life. (And it looks cooler on Instagram than "Staring at cmake output").</p>
+                    <p>You'd think being a CS major meant you had it all together, but half my time is spent searching Stack Overflow for reasons why my conditional statement is evaluating to true when it's clearly false. It's a miracle I haven't accidentally deployed hydra to my university network yet. Still, "Grinding in the terminal" isn't just a bio, it's a way of life.</p>
                 </div>
             </div>
         </section>
@@ -64,7 +85,7 @@
                 </div>
                 <div class="playlist-container">
                     <audio controls class="portfolio-player">
-                       <source src="beat.mp3.wav" type="audio/wav">
+                        <source src="beat.mp3.wav" type="audio/wav">
                     </audio>
                 </div>
             </div>
@@ -89,17 +110,21 @@
     <script>
         const sections = document.querySelectorAll('.section');
         const bgContainer = document.getElementById('background-container');
-        const observerOptions = { root: document.getElementById('main-scroller'), threshold: 0.5 };
+        const observerOptions = { root: document.getElementById('main-scroller'), threshold: 0.3 }; // Trigger slightly earlier
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const newBg = entry.target.dataset.bg;
                     bgContainer.style.backgroundImage = `url('${newBg}')`;
-                    sections.forEach(s => s.classList.remove('is-active'));
                     entry.target.classList.add('is-active');
+                } else {
+                    // Optional: remove this if you want it to ONLY fade in once
+                    entry.target.classList.remove('is-active');
                 }
             });
         }, observerOptions);
+        
         sections.forEach(section => { observer.observe(section); });
     </script>
 </body>
