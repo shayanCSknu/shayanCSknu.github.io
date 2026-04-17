@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shayan | CS</title>
+    <style>
+        /* The Fade-In Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        body {
+            /* YOUR BACKGROUND IMAGE GOES HERE */
+            background-image: url('https://link-to-your-background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            color: #00ff00; /* Hacker Green Text */
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin-top: 50px;
+            
+            /* Apply the animation */
+            animation: fadeIn 2s ease-in;
+            
+            /* Adds a dark overlay so text is easy to read over the picture */
+            background-color: rgba(0, 0, 0, 0.7);
+            background-blend-mode: overlay;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #00ff00;
+            object-fit: cover;
+            box-shadow: 0 0 20px #00ff00; /* Glowing effect */
+        }
+        .bio {
+            max-width: 400px;
+            margin: 20px auto;
+            color: #ffffff;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+        .links a {
+            display: block;
+            width: 200px;
+            margin: 15px auto;
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            background-color: #00ff00;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .links a:hover {
+            background-color: #fff;
+            box-shadow: 0 0 25px #00ff00;
+            transform: scale(1.05); /* Makes the button pop out when hovered */
+        }
+        .music-player {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://link-to-your-profile-pic.jpg" alt="Shayan" class="profile-pic">
+
+    <h1>Shayan Shahram</h1>
+    
+    <div class="bio">
+        <p>CS Student @ Knowledge University | Gym Rat</p>
+        <p><i>"Grinding in the terminal."</i></p>
+    </div>
+
+    <div class="links">
+        <a href="https://instagram.com/yourusername" target="_blank">Instagram</a>
+        <a href="https://github.com/shayanCSknu" target="_blank">GitHub</a>
+        <a href="mailto:youremail@email.com">Contact Me</a>
+    </div>
+
+    <div class="music-player">
+        <p>Vibe Check:</p>
+        <audio controls loop>
+            <source src="https://link-to-your-song.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+</body>
+</html>
