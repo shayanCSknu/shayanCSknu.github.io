@@ -3,93 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shayan | CS</title>
+    <title>Shayan | CS | Music Production</title>
     <style>
-        /* The Fade-In Animation */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        /* ==============================
+           Global Styles (The Canvas)
+           ============================== */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* JavaScript will handle the scrolling */
+            background-color: #050505; /* Black fallback */
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 300;
         }
 
-        body {
-            /* YOUR BACKGROUND IMAGE GOES HERE */
-            background-image: url('https://link-to-your-background-image.jpg');
+        /* ==============================
+           The Pinned Background (The Magic)
+           ============================== */
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            z-index: -2;
+            transition: background-image 1.2s ease-in-out; /* Smooth swap effect */
             
-            color: #00ff00; /* Hacker Green Text */
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            margin-top: 50px;
-            
-            /* Apply the animation */
-            animation: fadeIn 2s ease-in;
-            
-            /* Adds a dark overlay so text is easy to read over the picture */
-            background-color: rgba(0, 0, 0, 0.7);
+            /* Add a dynamic dark overlay for text readability */
+            background-color: rgba(0, 0, 0, 0.6);
             background-blend-mode: overlay;
         }
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #00ff00;
-            object-fit: cover;
-            box-shadow: 0 0 20px #00ff00; /* Glowing effect */
+
+        /* ==============================
+           The Scroller (Content Container)
+           ============================== */
+        #main-scroller {
+            height: 100vh;
+            overflow-y: auto; /* Enable native scrolling inside the container */
+            scroll-behavior: smooth; /* Smooth transitions on anchor links */
         }
-        .bio {
-            max-width: 400px;
-            margin: 20px auto;
+
+        /* ==============================
+           Full-Screen Sections (Slides)
+           ============================== */
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 15%;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* Apply a slight movement animation as you enter a section */
+        .section .content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s ease-out 0.2s; /* Delayed fade and slide */
+        }
+
+        /* This class is applied by JavaScript when the slide is active */
+        .section.is-active .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==============================
+           Section Typography
+           ============================== */
+        h1.site-title {
+            font-size: 6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 0 0 10px 0;
             color: #ffffff;
-            line-height: 1.6;
-            font-weight: bold;
         }
-        .links a {
-            display: block;
-            width: 200px;
-            margin: 15px auto;
-            padding: 10px;
-            text-decoration: none;
-            color: #000;
-            background-color: #00ff00;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
+
+        h2.section-header {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            color: #00ffff; /* Modern Cyan for impact */
         }
-        .links a:hover {
-            background-color: #fff;
-            box-shadow: 0 0 25px #00ff00;
-            transform: scale(1.05); /* Makes the button pop out when hovered */
+
+        .section-paragraph {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #cccccc;
+            max-width: 800px;
         }
-        .music-player {
+
+        /* ==============================
+           Music Production Showcase (FL Studio)
+           ============================== */
+        .fl-logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .playlist-container {
             margin-top: 30px;
+            text-align: left;
+            max-width: 600px;
+            color: #ffffff;
         }
+
+        .playlist-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #00ffff;
+        }
+
+        audio.portfolio-player {
+            width: 100%;
+            background-color: transparent;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        /* ==============================
+           Professional Control Buttons
+           ============================== */
+        .control-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: transparent;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background-color: #00ffff;
+            color: #000000;
+            box-shadow: 0 0 25px #00ffff;
+            transform: scale(1.05);
+        }
+
+        /* GTA6-Vibe Glowing Footer */
+        .footer {
+            margin-top: auto;
+            margin-bottom: 40px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+        
     </style>
 </head>
 <body>
 
-    <img src="https://link-to-your-profile-pic.jpg" alt="Shayan" class="profile-pic">
+    <div id="background-container"></div>
 
-    <h1>Shayan Shahram</h1>
-    
-    <div class="bio">
-        <p>CS Student @ Knowledge University | Gym Rat</p>
-        <p><i>"Grinding in the terminal."</i></p>
-    </div>
+    <div id="main-scroller">
 
-    <div class="links">
-        <a href="https://instagram.com/yourusername" target="_blank">Instagram</a>
-        <a href="https://github.com/shayanCSknu" target="_blank">GitHub</a>
-        <a href="mailto:youremail@email.com">Contact Me</a>
-    </div>
+        <section class="section is-active" id="hero" 
+                 data-bg="https://images.unsplash.com/photo-1549880181-56a44cf4a9a1?q=80&w=1920">
+            <div class="content">
+                <h1 class="site-title">Shayan</h1>
+                <h2>Computer Science</h2>
+                <a href="#about" class="control-btn">Enter</a>
+            </div>
+            <div class="footer">Grinding in the terminal...</div>
+        </section>
 
-    <div class="music-player">
-        <p>Vibe Check:</p>
-        <audio controls loop>
-            <source src="https://link-to-your-song.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+        <section class="section" id="about" 
+                 data-bg="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1920">
+            <div class="content">
+                <h2 class="section-header">About Shayan</h2>
+                <div class="section-paragraph">
+                    <p>I am a highly motivated Computer Science student at Knowledge University in Iraq. My world is divided between advanced algorithmic problem-solving in the lab and peak physical performance at the gym.</p>
+                </div>
+            </div>
+        </section>
 
+        <section class="section" id="music" 
+                 data-bg="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1920">
+            <div class="content">
+                <h2 class="section-header">FL Studio Showcase</h2>
+                <div class="section-paragraph">
+                    <p>When I'm not writing code, I am producing original music in FL Studio. This passion drives me to explore new soundscapes and refine my audio engineering skills.</p>
+                </div>
+
+                <div class="playlist-container">
+                    <h3 class="playlist-title">Recent Tracks:</h3>
+                    
+                    <p>Track 1: Binary Beats (Synthwave)</p>
+                    <audio controls class="portfolio-player">
+                        <source src="https://link-to-your-track-1.mp3" type="audio/mpeg">
+                    </audio>
+
+                    <p>Track 2: Network Drive (Ambient)</p>
+                    <audio controls class="portfolio-player">
+                        <source src="https://link-to-your-track-2.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact" 
+                 data-bg="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=1920">
+            <div class="content">
+                <h2 class="section-header">Contact Me</h2>
+                <div class="links">
+                    <a href="https://instagram.com/yourusername" target="_blank" class="control-btn">Instagram</a>
+                    <a href="https://github.com/shayanCSknu" target="_blank" class="control-btn">GitHub</a>
+                    <a href="mailto:youremail@email.com" class="control-btn">Connect</a>
+                </div>
+            </div>
+        </section>
+
+    </div> <script>
+        // Use a simple Intersection Observer to swap background based on current section
+        const sections = document.querySelectorAll('.section');
+        const bgContainer = document.getElementById('background-container');
+        
+        // Configuration for the observer: 
+        // 0.5 threshold means swap when 50% of the new slide is in view.
+        const observerOptions = {
+            root: document.getElementById('main-scroller'),
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // When a section enters the specified threshold (50%)
+                if (entry.isIntersecting) {
+                    
+                    // 1. Get the background image from that section's data attribute
+                    const newBg = entry.target.dataset.bg;
+                    
+                    // 2. Apply the new background to the fixed container
+                    bgContainer.style.backgroundImage = `url('${newBg}')`;
+                    
+                    // 3. Mark this section as active (fades in content)
+                    sections.forEach(s => s.classList.remove('is-active'));
+                    entry.target.classList.add('is-active');
+                }
+            });
+        }, observerOptions);
+
+        // Start observing each section
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
