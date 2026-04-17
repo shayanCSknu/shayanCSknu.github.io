@@ -5,263 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shayan | CS | Music Production</title>
     <style>
-        /* ==============================
-           Global Styles (The Canvas)
-           ============================== */
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* JavaScript will handle the scrolling */
-            background-color: #050505; /* Black fallback */
-            color: #ffffff;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-weight: 300;
-        }
-
-        /* ==============================
-           The Pinned Background (The Magic)
-           ============================== */
-        #background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            z-index: -2;
-            transition: background-image 1.2s ease-in-out; /* Smooth swap effect */
-            
-            /* Add a dynamic dark overlay for text readability */
-            background-color: rgba(0, 0, 0, 0.6);
-            background-blend-mode: overlay;
-        }
-
-        /* ==============================
-           The Scroller (Content Container)
-           ============================== */
-        #main-scroller {
-            height: 100vh;
-            overflow-y: auto; /* Enable native scrolling inside the container */
-            scroll-behavior: smooth; /* Smooth transitions on anchor links */
-        }
-
-        /* ==============================
-           Full-Screen Sections (Slides)
-           ============================== */
-        .section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 0 15%;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        /* Apply a slight movement animation as you enter a section */
-        .section .content {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s ease-out 0.2s; /* Delayed fade and slide */
-        }
-
-        /* This class is applied by JavaScript when the slide is active */
-        .section.is-active .content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==============================
-           Section Typography
-           ============================== */
-        h1.site-title {
-            font-size: 6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin: 0 0 10px 0;
-            color: #ffffff;
-        }
-
-        h2.section-header {
-            font-size: 3.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin: 0 0 20px 0;
-            font-weight: 700;
-            color: #00ffff; /* Modern Cyan for impact */
-        }
-
-        .section-paragraph {
-            font-size: 1.4rem;
-            line-height: 1.8;
-            color: #cccccc;
-            max-width: 800px;
-        }
-
-        /* ==============================
-           Music Production Showcase (FL Studio)
-           ============================== */
-        .fl-logo {
-            width: 150px;
-            margin-bottom: 20px;
-        }
-
-        .playlist-container {
-            margin-top: 30px;
-            text-align: left;
-            max-width: 600px;
-            color: #ffffff;
-        }
-
-        .playlist-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #00ffff;
-        }
-
-        audio.portfolio-player {
-            width: 100%;
-            background-color: transparent;
-            color: #00ffff;
-            margin-bottom: 10px;
-        }
-
-        /* ==============================
-           Professional Control Buttons
-           ============================== */
-        .control-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 40px;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: transparent;
-            border: 2px solid #00ffff;
-            border-radius: 5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: 0.3s ease;
-        }
-
-        .control-btn:hover {
-            background-color: #00ffff;
-            color: #000000;
-            box-shadow: 0 0 25px #00ffff;
-            transform: scale(1.05);
-        }
-
-        /* GTA6-Vibe Glowing Footer */
-        .footer {
-            margin-top: auto;
-            margin-bottom: 40px;
-            color: #ffffff;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-        }
-        
+        /* Global Canvas */
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #050505; color: #ffffff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; }
+        #background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; z-index: -2; transition: background-image 1.2s ease-in-out; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: overlay; }
+        #main-scroller { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
+        .section { min-height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 10% 15%; position: relative; box-sizing: border-box; }
+        .section .content { opacity: 0; transform: translateY(50px); transition: all 1.2s ease-out 0.2s; }
+        .section.is-active .content { opacity: 1; transform: translateY(0); }
+        h1.site-title { font-size: 5rem; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 10px 0; color: #ffffff; text-shadow: 0 0 10px #00ff00; }
+        h2.section-header { font-size: 3rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px 0; font-weight: 700; color: #00ff00; }
+        .section-paragraph { font-size: 1.3rem; line-height: 1.8; color: #eeeeee; max-width: 800px; font-weight: bold; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; }
+        .playlist-container { margin-top: 30px; width: 100%; max-width: 600px; }
+        audio.portfolio-player { width: 100%; margin-top: 15px; }
+        .control-btn { display: inline-block; margin: 15px 10px; padding: 15px 40px; text-decoration: none; color: #00ff00; background-color: transparent; border: 2px solid #00ff00; border-radius: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s ease; }
+        .control-btn:hover { background-color: #00ff00; color: #000000; box-shadow: 0 0 25px #00ff00; transform: scale(1.05); }
+        @media (max-width: 768px) { h1.site-title { font-size: 3rem; } h2.section-header { font-size: 2rem; } .section-paragraph { font-size: 1rem; padding: 15px; } .section { padding: 15% 5%; } .control-btn { padding: 10px 20px; width: 80%; display: block; margin: 10px auto;} }
     </style>
 </head>
 <body>
 
     <div id="background-container"></div>
-
     <div id="main-scroller">
 
-        <section class="section is-active" id="hero" 
-                 data-bg="https://images.unsplash.com/photo-1549880181-56a44cf4a9a1?q=80&w=1920">
+        <section class="section is-active" id="hero" data-bg="hero.jpg.jpg">
             <div class="content">
                 <h1 class="site-title">Shayan</h1>
-                <h2>Computer Science</h2>
-                <a href="#about" class="control-btn">Enter</a>
+                <div class="section-paragraph">
+                    <p>Hey, welcome to my website! In these websites, I wanna show you the things that I love to do and you are going to know about me a lite.</p>
+                </div>
+                <a href="#about" class="control-btn">Enter Terminal</a>
             </div>
-            <div class="footer">Grinding in the terminal...</div>
         </section>
 
-        <section class="section" id="about" 
-                 data-bg="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1920">
+        <section class="section" id="about" data-bg="ubuntu.webp.webp">
             <div class="content">
-                <h2 class="section-header">About Shayan</h2>
+                <h2 class="section-header">CS & Terminal</h2>
                 <div class="section-paragraph">
-                    <p>I am a highly motivated Computer Science student at Knowledge University in Iraq. My world is divided between advanced algorithmic problem-solving in the lab and peak physical performance at the gym.</p>
+                    <p>This is me and my environment. They tell me to be serious because I'm a Computer Science student, but honestly, have you seen the default Ubuntu background? It's like the terminal is begging me to run <code>sudo rm -rf /</code>.</p>
+                    <p>You'd think being a CS major meant you had it all together, but half my time is spent searching Stack Overflow for reasons why my conditional statement is evaluating to true when it's clearly false. It's a miracle I haven't accidentally deployed hydra to my university network yet. Still, "Grinding in the terminal" isn't just a bio, it's a way of life. (And it looks cooler on Instagram than "Staring at cmake output").</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="music" 
-                 data-bg="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1920">
+        <section class="section" id="gym" data-bg="gym.jpg.jpg">
             <div class="content">
-                <h2 class="section-header">FL Studio Showcase</h2>
+                <h2 class="section-header">Gym Life</h2>
                 <div class="section-paragraph">
-                    <p>When I'm not writing code, I am producing original music in FL Studio. This passion drives me to explore new soundscapes and refine my audio engineering skills.</p>
+                    <p>As you can see, I'm going to the gym too and I'm not doing it for 2-3 weeks like these other dudes that only go to the gym for girls hahaha. I've been going to the gym since 2021, so... yeah, this isn't a hobby. (Unlike my CS major).</p>
                 </div>
+            </div>
+        </section>
 
+        <section class="section" id="music" data-bg="flstudio.jpg.jpg">
+            <div class="content">
+                <h2 class="section-header">FL Studio</h2>
+                <div class="section-paragraph">
+                    <p>When my brain is melting from nested if statements, I retreat to FL Studio to make beats for fun. Unlike my C++ code, this stuff actually compiles and runs without memory leaks. Enjoy this beat. I definitely didn't hide a payload in the audio frequencies.</p>
+                </div>
                 <div class="playlist-container">
-                    <h3 class="playlist-title">Recent Tracks:</h3>
-                    
-                    <p>Track 1: Binary Beats (Synthwave)</p>
                     <audio controls class="portfolio-player">
-                        <source src="https://link-to-your-track-1.mp3" type="audio/mpeg">
-                    </audio>
-
-                    <p>Track 2: Network Drive (Ambient)</p>
-                    <audio controls class="portfolio-player">
-                        <source src="https://link-to-your-track-2.mp3" type="audio/mpeg">
+                        <source src="beat.mp3" type="audio/mpeg">
                     </audio>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="contact" 
-                 data-bg="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=1920">
+        <section class="section" id="contact" data-bg="contact.jpg.jpg">
             <div class="content">
-                <h2 class="section-header">Contact Me</h2>
-                <div class="links">
-                    <a href="https://instagram.com/yourusername" target="_blank" class="control-btn">Instagram</a>
+                <h2 class="section-header">System Access</h2>
+                <div class="section-paragraph">
+                    <p>And this is me looking for a way to hack you somehow. Anyway, these are my other accounts if you want to see. They are all private, don't waste your time. Just leave your IP address and I’ll contact *you*.</p>
+                </div>
+                <div>
+                    <a href="https://www.instagram.com/shayan_shahram1/" target="_blank" class="control-btn">Instagram</a>
+                    <a href="https://www.facebook.com/shayan.shahram.144" target="_blank" class="control-btn">Facebook</a>
                     <a href="https://github.com/shayanCSknu" target="_blank" class="control-btn">GitHub</a>
-                    <a href="mailto:youremail@email.com" class="control-btn">Connect</a>
                 </div>
             </div>
         </section>
 
-    </div> <script>
-        // Use a simple Intersection Observer to swap background based on current section
+    </div> 
+
+    <script>
         const sections = document.querySelectorAll('.section');
         const bgContainer = document.getElementById('background-container');
-        
-        // Configuration for the observer: 
-        // 0.5 threshold means swap when 50% of the new slide is in view.
-        const observerOptions = {
-            root: document.getElementById('main-scroller'),
-            threshold: 0.5
-        };
-
+        const observerOptions = { root: document.getElementById('main-scroller'), threshold: 0.5 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // When a section enters the specified threshold (50%)
                 if (entry.isIntersecting) {
-                    
-                    // 1. Get the background image from that section's data attribute
                     const newBg = entry.target.dataset.bg;
-                    
-                    // 2. Apply the new background to the fixed container
                     bgContainer.style.backgroundImage = `url('${newBg}')`;
-                    
-                    // 3. Mark this section as active (fades in content)
                     sections.forEach(s => s.classList.remove('is-active'));
                     entry.target.classList.add('is-active');
                 }
             });
         }, observerOptions);
-
-        // Start observing each section
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => { observer.observe(section); });
     </script>
 </body>
 </html>
