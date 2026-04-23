@@ -32,7 +32,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.75); /* Slightly darker for white text contrast */
+            background: rgba(0, 0, 0, 0.3); /* CHANGED: Lowered from 0.75 to 0.3 to make background brighter */
             z-index: -1;
         }
 
@@ -44,17 +44,17 @@
         .section { 
             min-height: 100vh; 
             display: flex; 
-            justify-content: center; 
+            justify-content: flex-start; /* CHANGED: Moved from center to the top */
             align-items: center; 
             flex-direction: column; 
             text-align: center; 
-            padding: 10% 15%; 
+            padding: 15vh 15% 5%; /* CHANGED: Added top padding so it sits perfectly in the upper half */
             box-sizing: border-box; 
         }
 
         .section .content { 
             opacity: 0; 
-            transform: translateY(150px); 
+            transform: translateY(50px); /* Adjusted animation slightly for the new top position */
             transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1); 
         }
 
@@ -120,7 +120,7 @@
         @media (max-width: 768px) { 
             h1.site-title { font-size: 3rem; } 
             h2.section-header { font-size: 2rem; } 
-            .section { padding: 5%; } 
+            .section { padding: 15vh 5% 5%; } /* Adjusted mobile padding */
             .control-btn { display: block; margin: 10px auto; width: 85%; } 
         }
     </style>
@@ -179,7 +179,7 @@
             <div class="content">
                 <h2 class="section-header">System Access</h2>
                 <div class="section-paragraph">
-                    <p>And this is me looking for a way to hack you somehow. Anyway, these are my other accounts if you want to see. They are all private, don't waste your time. Just leave your IP address and I’ll contact *you*.</p>
+                    <p>And this is me looking for a way to hack you somehow. Anyway, these are my other accounts if you want to see. They are all private, don't waste your time. Just leave your IP address and I'll contact *you*.</p>
                 </div>
                 <div>
                     <a href="https://www.instagram.com/shayan_shahram1/" target="_blank" class="control-btn">Instagram</a>
